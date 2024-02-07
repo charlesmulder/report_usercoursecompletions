@@ -3,7 +3,7 @@
     <!-- Check for cross-version support for PHP 7.4 and higher. -->
     <config name="testVersion" value="7.4-"/>
 
-    <description>The Veri coding standard.</description>
+    <description>Moodle coding standard.</description>
     <arg name="tab-width" value="4"/>
 
     <file>.</file>

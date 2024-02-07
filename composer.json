@@ -1,8 +1,8 @@
 {
-    "name": "fioru/moodle-plugin_template",
-    "type": "moodle-local",
+    "name": "charlesmulder/report_usercoursecompletions",
+    "type": "moodle-report",
     "extra": {
-        "installer-name": "example"
+        "installer-name": "usercoursecompletions"
     },
     "scripts": {
         "lint": "phplint ./ --exclude=vendor",
@@ -20,10 +20,19 @@
         "composer/installers": "~1.0"
     },
     "require-dev": {
+        "moodlehq/moodle-cs": "v3.3.14",
         "squizlabs/php_codesniffer": "^3.6",
         "overtrue/phplint": "^4.0",
         "phpunit/phpunit": "^9.5",
         "enlightn/security-checker": "^1.9",
         "fakerphp/faker": "^1.17"
+    },
+	"minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

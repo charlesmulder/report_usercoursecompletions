@@ -38,87 +38,13 @@ $CFG = new stdClass();
 // will be stored.  This database must already have been created         //
 // and a username/password created to access it.                         //
 
-$CFG->dbtype    = 'pgsql';      // 'pgsql', 'mariadb', 'mysqli', 'sqlsrv' or 'oci'
+$CFG->dbtype    = 'mariadb';      // 'pgsql', 'mariadb', 'mysqli', 'sqlsrv' or 'oci'
 $CFG->dblibrary = 'native';     // 'native' only at the moment
-$CFG->dbhost    = 'localhost';  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->dbhost    = 'db';  // eg 'localhost' or 'db.isp.com' or IP
 $CFG->dbname    = 'moodle';     // database name, eg moodle
-$CFG->dbuser    = 'username';   // your database username
-$CFG->dbpass    = 'password';   // your database password
+$CFG->dbuser    = 'moodle';   // your database username
+$CFG->dbpass    = 'secret';   // your database password
 $CFG->prefix    = 'mdl_';       // prefix to use for all table names
-$CFG->dboptions = array(
-    'dbpersist' => false,       // should persistent database connections be
-                                // used? set to 'false' for the most stable
-                                // setting, 'true' can improve performance
-                                // sometimes
-    'dbsocket'  => false,       // should connection via UNIX socket be used?
-                                // if you set it to 'true' or custom path
-                                // here set dbhost to 'localhost',
-                                // (please note mysql is always using socket
-                                // if dbhost is 'localhost' - if you need
-                                // local port connection use '127.0.0.1')
-    'dbport'    => '',          // the TCP port number to use when connecting
-                                // to the server. keep empty string for the
-                                // default port
-    'dbhandlesoptions' => false,// On PostgreSQL poolers like pgbouncer don't
-                                // support advanced options on connection.
-                                // If you set those in the database then
-                                // the advanced settings will not be sent.
-    'dbcollation' => 'utf8mb4_unicode_ci', // MySQL has partial and full UTF-8
-                                // support. If you wish to use partial UTF-8
-                                // (three bytes) then set this option to
-                                // 'utf8_unicode_ci', otherwise this option
-                                // can be removed for MySQL (by default it will
-                                // use 'utf8mb4_unicode_ci'. This option should
-                                // be removed for all other databases.
-    // 'fetchbuffersize' => 100000, // On PostgreSQL, this option sets a limit
-                                // on the number of rows that are fetched into
-                                // memory when doing a large recordset query
-                                // (e.g. search indexing). Default is 100000.
-                                // Uncomment and set to a value to change it,
-                                // or zero to turn off the limit. You need to
-                                // set to zero if you are using pg_bouncer in
-                                // 'transaction' mode (it is fine in 'session'
-                                // mode).
-    /*
-    'connecttimeout' => null, // Set connect timeout in seconds. Not all drivers support it.
-    'readonly' => [          // Set to read-only slave details, to get safe reads
-                             // from there instead of the master node. Optional.
-                             // Currently supported by pgsql and mysqli variety classes.
-                             // If not supported silently ignored.
-      'instance' => [        // Readonly slave connection parameters
-        [
-          'dbhost' => 'slave.dbhost',
-          'dbport' => '',    // Defaults to master port
-          'dbuser' => '',    // Defaults to master user
-          'dbpass' => '',    // Defaults to master password
-        ],
-        [...],
-      ],
-
-    Instance(s) can alternatively be specified as:
-
-      'instance' => 'slave.dbhost',
-      'instance' => ['slave.dbhost1', 'slave.dbhost2'],
-      'instance' => ['dbhost' => 'slave.dbhost', 'dbport' => '', 'dbuser' => '', 'dbpass' => ''],
-
-      'connecttimeout' => 2, // Set read-only slave connect timeout in seconds. See above.
-      'latency' => 0.5,      // Set read-only slave sync latency in seconds.
-                             // When 'latency' seconds have lapsed after an update to a table
-                             // it is deemed safe to use readonly slave for reading from the table.
-                             // It is optional. If omitted once written to a table it will always
-                             // use master handle for reading.
-                             // Lower values increase the performance, but setting it too low means
-                             // missing the master-slave sync.
-      'exclude_tables' => [  // Tables to exclude from read-only slave feature.
-          'table1',          // Should not be used, unless in rare cases when some area of the system
-          'table2',          // is malfunctioning and you still want to use readonly feature.
-      ],                     // Then one can exclude offending tables while investigating.
-
-    More info available in lib/dml/moodle_read_slave_trait.php where the feature is implemented.
-    ]
-     */
-// For all database config settings see https://docs.moodle.org/en/Database_settings
-);
 
 
 // =========================================================================

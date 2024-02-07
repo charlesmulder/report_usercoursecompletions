@@ -4,8 +4,8 @@ namespace local_example;
 use PHPUnit\Framework\TestCase;
 use Faker;
 
-class mod_unit_test extends TestCase
-{
+class mod_unit_test extends TestCase {
+
 
     protected function setUp(): void {
         $this->faker = Faker\Factory::create();
