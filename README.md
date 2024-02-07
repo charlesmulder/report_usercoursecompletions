@@ -7,6 +7,17 @@ docker-compose up
 
 Open [http://localhost:8080](http://localhost:8080) in your browser.
 
+## [Generate test site data](https://docs.moodle.org/403/en/Test_site_generator)
+
+```sh
+php admin/tool/generator/cli/maketestsite.php --size=X
+```
+
+## Cron
+
+```sh
+php admin/cli/cron.php
+```
 
 ## Codechecker
 
