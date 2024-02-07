@@ -48,4 +48,4 @@ RUN echo '* * * * * /usr/local/bin/php /var/www/html/admin/cli/cron.php > /var/l
     crontab -u www-data /etc/cron.d/moodle
 
 # use dockerize to wait for db server
-CMD dockerize -timeout 300s -wait tcp://db:3306 && apache2-foreground
+CMD dockerize -timeout 300s -wait tcp://db:3306 && service cron start && apache2-foreground
