@@ -9,7 +9,7 @@ use core_reportbuilder\local\entities\user;
 use report_usercoursecompletions\reportbuilder\local\entities\course_completion;
 
 /**
- * @see https://moodledev.io/docs/apis/core/reportbuilder
+ * @see \report_usercoursecompletions\reportbuilder\local\systemreports\course_completions_report
  */
 class user_report extends system_report {
 
@@ -20,7 +20,6 @@ class user_report extends system_report {
         $this->set_main_table('user', $entityuseralias);
         $this->add_entity($entityuser);
 
-        // Now we can call our helper methods to add the content we want to include in the report.
         $this->add_columns();
         $this->add_filters();
 
@@ -64,12 +63,6 @@ class user_report extends system_report {
         }
     }
 
-    /**
-     * Adds the filters we want to display in the report
-     *
-     * They are all provided by the entities we previously added in the {@see initialise} method, referencing each by their
-     * unique identifier
-     */
     protected function add_filters(): void {
         $filters = [];
         $this->add_filters_from_entities($filters);

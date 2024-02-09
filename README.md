@@ -11,12 +11,6 @@ docker-compose up
 
 Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-## [Generate test site data](https://docs.moodle.org/403/en/Test_site_generator)
-
-```sh
-php admin/tool/generator/cli/maketestsite.php --size=XS
-```
-
 ## Logs
 
 ```sh
@@ -32,14 +26,29 @@ docker logs -f report_usercoursecompletions-web-1
 
 ```sh
 # install deps
-docker exec -ti -u www-data:www-data report_usercoursecompletions-web-1 composer install
+docker exec -ti report_usercoursecompletions-web-1 composer install
 # run moodle codesniffer checks
-docker exec -ti -u www-data:www-data report_usercoursecompletions-web-1 composer check
+docker exec -ti report_usercoursecompletions-web-1 composer check
+```
+
+## Behat Tests
+
+```sh
+# initialise moodle behat testing
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 php admin/tool/behat/cli/init.php
+# run plugin tests
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 vendor/bin/behat --config /var/www/behatdata/behatrun/behat/behat.yml --tags=report_usercoursecompletions
 ```
 
 ## PHPUnit Tests
 
 ```sh
-# run unit tests
-composer test
+# initialise moodle unit testing
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 php admin/tool/phpunit/cli/init.php
+# run plugin tests
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 vendor/bin/phpunit --test-suffix="_test.php" --testdox --colors=always report/usercoursecompletions/tests/unit
 ```
+
+# References
+
+- [Selenium Standalone Firefox](https://hub.docker.com/r/selenium/standalone-firefox)

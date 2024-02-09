@@ -17,19 +17,23 @@ $CFG->dboptions = array (
   'dbsocket' => '',
   'dbcollation' => 'utf8mb4_bin',
 );
+$CFG->site_is_public = false;
 
 $CFG->wwwroot   = 'http://localhost:8080';
 $CFG->dataroot  = '/var/www/moodledata';
 $CFG->admin     = 'admin';
+$CFG->noreplyaddress = 'noreply@example.com';
 
 // only for development environment 
-$CFG->debug = E_ALL;
+$CFG->debug = (E_ALL | E_STRICT); // DEBUG_DEVELOPER
 $CFG->debugdisplay = 1;
-$CFG->langstringcache = 0;
-$CFG->cachetemplates = 0;
-$CFG->cachejs = 0;
+$CFG->debugstringids = 1; // Add strings=1 to url to get string ids.
 $CFG->perfdebug = 15;
 $CFG->debugpageinfo = 1;
+$CFG->allowthemechangeonurl = 1;
+$CFG->passwordpolicy = 0;
+$CFG->cronclionly = 0;
+$CFG->pathtophp = '/usr/local/bin/php';
 
 $CFG->directorypermissions = 0777;
 
@@ -39,5 +43,16 @@ require_once(__DIR__ . '/lib/setup.php');
 $CFG->phpunit_dataroot = '/var/www/phpu_moodledata';
 $CFG->phpunit_prefix = 'phpu_';
 
-// There is no php closing tag in this file,
-// it is intentional because it prevents trailing whitespace problems!
+// Behat
+$CFG->behat_dataroot = '/var/www/behatdata';
+$CFG->behat_wwwroot = 'http://127.0.0.1:8080';
+$CFG->behat_prefix = 'beh_';
+$CFG->behat_profiles = [
+    'default' => [
+        'browser' => 'firefox',
+        'wd_host' => 'http://selenium:4444/wd/hub',
+    ]
+];
+$CFG->behat_faildump_path = '/var/www/behatfaildumps';
+
+require_once(__DIR__ . '/lib/setup.php');

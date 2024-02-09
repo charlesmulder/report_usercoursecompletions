@@ -9,7 +9,7 @@
         "check": "phpcs --standard=ruleset.xml",
         "fix": "phpcbf --standard=ruleset.xml",
         "secure": "security-checker security:check composer.lock",
-        "test": "phpunit --bootstrap vendor/autoload.php --testdox --colors=always --whitelist lib --coverage-text",
+        "test": "phpunit --bootstrap vendor/autoload.php --test-suffix _test.php --testdox --colors=always --whitelist lib --coverage-text",
         "all": [
             "@composer check",
             "@composer test",

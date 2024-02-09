@@ -14,15 +14,11 @@ use core_reportbuilder\local\report\filter;
 use core_reportbuilder\local\filters\{ date, user, course_selector };
 
 /**
- * @see https://moodledev.io/docs/apis/core/reportbuilder
+ * @see https://moodledev.io/docs/apis/core/reportbuilder#entity
+ * @see https://github.com/moodle/moodle/blob/master/report/configlog/classes/reportbuilder/local/entities/config_change.php
  */
 class course_completion extends base {
 
-    /**
-     * Database tables that this entity uses
-     *
-     * @return string[]
-     */
     protected function get_default_tables(): array {
         return [
             'user',
@@ -37,20 +33,10 @@ class course_completion extends base {
         ];
     }
 
-    /**
-     * The default title for this entity
-     *
-     * @return lang_string
-     */
     protected function get_default_entity_title(): lang_string {
         return new lang_string('entitycoursecompletiontitle', utils::get_plugin_name() );
     }
 
-    /**
-     * Initialize the entity
-     *
-     * @return base
-     */
     public function initialise(): base {
         $columns = $this->get_all_columns();
         foreach ($columns as $column) {
@@ -134,13 +120,9 @@ class course_completion extends base {
     }
 
     /**
-     * Return list of all available filters
-     *
      * @return filter[]
      */
     protected function get_all_filters(): array {
         return [];
     }
-
-
 }

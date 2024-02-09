@@ -1,8 +1,4 @@
 <?php
-/**
- * Entry pages for Moodle files should all start by including the config.php file found in
- * the root directory of the codebase
- */
 use report_usercoursecompletions\utils;
 use report_usercoursecompletions\reportbuilder\local\systemreports\course_completions_report;
 use core_reportbuilder\system_report_factory;
@@ -19,7 +15,6 @@ admin_externalpage_setup( 'usercoursecompletions', '', ['userid' => $userid], ''
 echo $OUTPUT->header();
 echo $OUTPUT->heading( get_string('coursecompletionsreportheading', utils::get_plugin_name() ) );
 
-// Create out report instance, setting initial filtering if required.
 $report = system_report_factory::create(course_completions_report::class, context_system::instance());
 
 if ( ! empty( $userid ) ) {
@@ -32,4 +27,3 @@ if ( ! empty( $userid ) ) {
 echo $report->output();
 
 echo $OUTPUT->footer();
-

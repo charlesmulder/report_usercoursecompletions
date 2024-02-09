@@ -27,6 +27,9 @@ RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases
 
 COPY etc/php/php.ini /usr/local/etc/php/php.ini
 
+# install moodle-browser-config
+RUN git clone --depth 1 https://github.com/andrewnicols/moodle-browser-config /opt/moodle-browser-config
+
 USER www-data
 
 WORKDIR /var/www/html
