@@ -46,13 +46,15 @@ $CFG->phpunit_prefix = 'phpu_';
 // Behat
 $CFG->behat_dataroot = '/var/www/behatdata';
 $CFG->behat_wwwroot = 'http://127.0.0.1:8080';
-$CFG->behat_prefix = 'beh_';
+$CFG->behat_prefix = 'bht_';
 $CFG->behat_profiles = [
-    'default' => [
+    'firefox' => [
         'browser' => 'firefox',
-        'wd_host' => 'http://selenium:4444/wd/hub',
+        'wd_host' => 'http://selenium:4444',
     ]
 ];
 $CFG->behat_faildump_path = '/var/www/behatfaildumps';
 
+require_once('/opt/moodle-browser-config/init.php');
 require_once(__DIR__ . '/lib/setup.php');
+

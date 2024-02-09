@@ -31,15 +31,6 @@ docker exec -ti report_usercoursecompletions-web-1 composer install
 docker exec -ti report_usercoursecompletions-web-1 composer check
 ```
 
-## Behat Tests
-
-```sh
-# initialise moodle behat testing
-docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 php admin/tool/behat/cli/init.php
-# run plugin tests
-docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 vendor/bin/behat --config /var/www/behatdata/behatrun/behat/behat.yml --tags=report_usercoursecompletions
-```
-
 ## PHPUnit Tests
 
 ```sh
@@ -49,6 +40,18 @@ docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletio
 docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 vendor/bin/phpunit --test-suffix="_test.php" --testdox --colors=always report/usercoursecompletions/tests/unit
 ```
 
+## Behat Tests
+
+```sh
+# initialise moodle behat testing
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 php admin/tool/behat/cli/init.php
+# run plugin tests
+docker exec -ti -u www-data:www-data -w /var/www/html report_usercoursecompletions-web-1 vendor/bin/behat --config /var/www/behatdata/behatrun/behat/behat.yml --tags=report_usercoursecompletions
+```
+
+Open [http://localhost:7900/?autoconnect=1&resize=scale&password=secret](http://localhost:7900/?autoconnect=1&resize=scale&password=secret) in your browser.
+
 # References
 
+- [docker-selenium](https://github.com/SeleniumHQ/docker-selenium)
 - [Selenium Standalone Firefox](https://hub.docker.com/r/selenium/standalone-firefox)
