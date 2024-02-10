@@ -1,6 +1,8 @@
 <?php
 namespace report_usercoursecompletions;
 
+use DOMDocument, DOMXPath;
+
 use advanced_testcase;
 
 use report_usercoursecompletions\reportbuilder\local\systemreports\course_completions_report;
@@ -40,6 +42,16 @@ class course_completions_report_test extends advanced_testcase {
         ]);
         $data = $exporter->export($PAGE->get_renderer('core_reportbuilder'));
         $this->assertStringContainsString( '!! Nothing to display !!', $data->table );
+        $doc = new DOMDocument();
+        $doc->preserveWhiteSpace = false;
+
+        $doc->loadHTML($data->table);
+        $xpath = new DOMXPath($doc);
+
+        $query = sprintf('//tbody/tr[@class="%s"]', utils::get_plugin_name() );
+
+        $rows = $xpath->query($query);
+        $this->assertSame(0, $rows->count());
     }
 
     public function test_enrolled_and_complete() {
@@ -71,6 +83,20 @@ class course_completions_report_test extends advanced_testcase {
         $this->assertStringNotContainsString('No', $data->table );
         $this->assertStringContainsString(userdate($completioncompletion->timecompleted), $data->table);
 
+        $doc = new DOMDocument();
+        $doc->preserveWhiteSpace = false;
+
+        $doc->loadHTML($data->table);
+        $xpath = new DOMXPath($doc);
+
+        $query = sprintf('//tbody/tr[@class="%s"]', utils::get_plugin_name() );
+
+        $rows = $xpath->query($query);
+        $this->assertSame(1, $rows->count());
+        $cells = $doc->getElementsByTagName('td');
+        $this->assertSame($cells->item(0)->nodeValue, $this->course->fullname); // Course fullname.
+        $this->assertSame($cells->item(1)->nodeValue, 'Yes'); // Is completed.
+        $this->assertSame($cells->item(2)->nodeValue, userdate($completioncompletion->timecompleted)); // Time completed.
     }
 
     public function test_enrolled_and_incomplete() {
@@ -99,6 +125,21 @@ class course_completions_report_test extends advanced_testcase {
         $this->assertStringContainsString($this->course->fullname, $data->table );
         $this->assertStringContainsString('No', $data->table );
         $this->assertStringNotContainsString('Yes', $data->table);
+
+        $doc = new DOMDocument();
+        $doc->preserveWhiteSpace = false;
+
+        $doc->loadHTML($data->table);
+        $xpath = new DOMXPath($doc);
+
+        $query = sprintf('//tbody/tr[@class="%s"]', utils::get_plugin_name() );
+
+        $rows = $xpath->query($query);
+        $this->assertSame(1, $rows->count());
+        $cells = $doc->getElementsByTagName('td');
+        $this->assertSame($cells->item(0)->nodeValue, $this->course->fullname); // Course fullname.
+        $this->assertSame($cells->item(1)->nodeValue, 'No'); // Is complete.
+        $this->assertSame($cells->item(2)->nodeValue, ''); // Time completed.
 
     }
 
@@ -150,6 +191,33 @@ class course_completions_report_test extends advanced_testcase {
         $this->assertStringContainsString('No', $data->table );
         $this->assertStringContainsString('Yes', $data->table);
         $this->assertStringContainsString(userdate($course1completioncompletion->timecompleted), $data->table);
+
+        $doc = new DOMDocument();
+        $doc->preserveWhiteSpace = false;
+
+        $doc->loadHTML($data->table);
+        $xpath = new DOMXPath($doc);
+
+        $query = sprintf('//tbody/tr[@class="%s"]', utils::get_plugin_name() ); // Find by css class.
+
+        $rows = $xpath->query($query);
+        $this->assertSame(2, $rows->count());
+
+        // Course 2.
+        $row1 = $rows->item(0);
+        $row1cells = $row1->getElementsByTagName('td');
+        $this->assertSame($row1cells->item(0)->nodeValue, $course2->fullname); // Course fullname.
+        $this->assertSame($row1cells->item(1)->nodeValue, 'No'); // Is complete.
+        $this->assertSame($row1cells->item(2)->nodeValue, ''); // Time completed.
+        // Course 1.
+        $row2 = $rows->item(1);
+        $row2cells = $row2->getElementsByTagName('td');
+        $this->assertSame($row2cells->item(0)->nodeValue, $this->course->fullname); // Course fullname.
+        $this->assertSame($row2cells->item(1)->nodeValue, 'Yes'); // Is complete.
+        $this->assertSame(
+            $row2cells->item(2)->nodeValue,
+            userdate($course1completioncompletion->timecompleted)
+        ); // Time completed.
 
     }
 

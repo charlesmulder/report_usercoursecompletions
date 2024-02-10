@@ -68,4 +68,10 @@ class user_report extends system_report {
         $this->add_filters_from_entities($filters);
     }
 
+    /**
+     * Add custom CSS class.
+     */
+    public function get_row_class(stdClass $row): string {
+        return utils::get_plugin_name();
+    }
 }

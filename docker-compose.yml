@@ -22,6 +22,12 @@ services:
 
   db:
       image: mariadb:10.6.7
+      command: >
+              --character-set-server=utf8mb4
+              --collation-server=utf8mb4_bin
+              --innodb_file_per_table=On
+              --wait-timeout=28800
+              --skip-log-bin
       environment:
         - MYSQL_DATABASE=moodle
         - MYSQL_USER=moodle
