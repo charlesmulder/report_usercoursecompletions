@@ -37,8 +37,6 @@ $CFG->pathtophp = '/usr/local/bin/php';
 
 $CFG->directorypermissions = 0777;
 
-require_once(__DIR__ . '/lib/setup.php');
-
 // PHPUnit
 $CFG->phpunit_dataroot = '/var/www/phpu_moodledata';
 $CFG->phpunit_prefix = 'phpu_';
