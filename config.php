@@ -43,7 +43,7 @@ $CFG->phpunit_prefix = 'phpu_';
 
 // Behat
 $CFG->behat_dataroot = '/var/www/behatdata';
-$CFG->behat_wwwroot = 'http://127.0.0.1:8080';
+$CFG->behat_wwwroot = 'http://web:80';
 $CFG->behat_prefix = 'bht_';
 $CFG->behat_profiles = [
     'firefox' => [
